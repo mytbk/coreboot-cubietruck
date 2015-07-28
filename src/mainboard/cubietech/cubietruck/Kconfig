@@ -1,0 +1,29 @@
+if BOARD_CUBIETECH_CUBIETRUCK
+
+config BOARD_SPECIFIC_OPTIONS # dummy
+	def_bool y
+	select CPU_ALLWINNER_A20
+	select BOARD_ROMSIZE_KB_4096
+	select DRIVER_XPOWERS_AXP209
+
+config MAINBOARD_DIR
+	string
+	default cubietech/cubietruck
+
+config MAINBOARD_PART_NUMBER
+	string
+	default "Cubietruck A20"
+
+config MAX_CPUS
+	int
+	default 2
+
+config DRAM_SIZE_MB
+	int
+	default 2048
+
+config UART_FOR_CONSOLE
+	int
+	default 0
+
+endif # BOARD_CUBIETECH_CUBIETRUCK

@@ -1,1 +1,2 @@
 subdirs-$(CONFIG_CPU_ALLWINNER_A10) += a10
+subdirs-$(CONFIG_CPU_ALLWINNER_A20) += a20

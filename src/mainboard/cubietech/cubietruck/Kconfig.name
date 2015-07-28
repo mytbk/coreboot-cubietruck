@@ -1,0 +1,2 @@
+config BOARD_CUBIETECH_CUBIETRUCK
+	bool "Cubietruck"
