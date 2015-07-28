@@ -9,7 +9,7 @@
 
 #include <arch/io.h>
 
-static struct a10_gpio *const gpio = (void *)GPIO_BASE;
+static struct a20_gpio *const gpio = (void *)GPIO_BASE;
 
 /**
  * \brief Set a single output pin

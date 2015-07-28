@@ -11,9 +11,9 @@
 #include <console/uart.h>
 #include <console/console.h>
 #include <delay.h>
-#include <cpu/allwinner/a10/gpio.h>
-#include <cpu/allwinner/a10/clock.h>
-#include <cpu/allwinner/a10/dramc.h>
+#include <cpu/allwinner/a20/gpio.h>
+#include <cpu/allwinner/a20/clock.h>
+#include <cpu/allwinner/a20/dramc.h>
 
 #define CPU_AHB_APB0_DEFAULT 		\
 	 CPU_CLK_SRC_OSC24M	 	\
@@ -35,7 +35,7 @@
 static void cubieboard_set_sys_clock(void)
 {
 	u32 reg32;
-	struct a10_ccm *ccm = (void *)A1X_CCM_BASE;
+	struct a20_ccm *ccm = (void *)A1X_CCM_BASE;
 
 	/* Switch CPU clock to main oscillator */
 	write32(&ccm->cpu_ahb_apb0_cfg, CPU_AHB_APB0_DEFAULT);
@@ -58,7 +58,7 @@ static void cubieboard_set_sys_clock(void)
 
 static void cubieboard_setup_clocks(void)
 {
-	struct a10_ccm *ccm = (void *)A1X_CCM_BASE;
+	struct a20_ccm *ccm = (void *)A1X_CCM_BASE;
 
 	cubieboard_set_sys_clock();
 	/* Configure the clock source for APB1. This drives our UART */

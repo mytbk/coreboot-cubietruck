@@ -7,8 +7,8 @@
  * Subject to the GNU GPL v2, or (at your option) any later version.
  */
 
-#ifndef CPU_ALLWINNER_A10_TIMER_H
-#define CPU_ALLWINNER_A10_TIMER_H
+#ifndef CPU_ALLWINNER_A20_TIMER_H
+#define CPU_ALLWINNER_A20_TIMER_H
 
 #include "memmap.h"
 #include <types.h>
@@ -96,4 +96,4 @@ struct a1x_timer_module {
 
 u8 a1x_get_cpu_chip_revision(void);
 
-#endif				/* CPU_ALLWINNER_A10_TIMER_H */
+#endif				/* CPU_ALLWINNER_A20_TIMER_H */

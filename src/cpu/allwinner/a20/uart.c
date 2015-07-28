@@ -13,7 +13,7 @@
 /**
  * \brief Configure line control settings for UART
  */
-static void a10_uart_configure(struct a10_uart *uart, u32 baud_rate, u8 data_bits,
+static void a20_uart_configure(struct a20_uart *uart, u32 baud_rate, u8 data_bits,
 			enum uart_parity parity, u8 stop_bits)
 {
 	u32 reg32;
@@ -43,12 +43,12 @@ static void a10_uart_configure(struct a10_uart *uart, u32 baud_rate, u8 data_bit
 	write32(&uart->lcr, reg32);
 }
 
-static void a10_uart_enable_fifos(struct a10_uart *uart)
+static void a20_uart_enable_fifos(struct a20_uart *uart)
 {
 	write32(&uart->fcr, UART8250_FCR_FIFO_EN);
 }
 
-static int tx_fifo_full(struct a10_uart *uart)
+static int tx_fifo_full(struct a20_uart *uart)
 {
 	/* This may be a misnomer, or a typo in the datasheet. THRE indicates
 	 * that the TX register is empty, not that the FIFO is not full, but
@@ -57,7 +57,7 @@ static int tx_fifo_full(struct a10_uart *uart)
 	return !(read32(&uart->lsr) & UART8250_LSR_THRE);
 }
 
-static int rx_fifo_empty(struct a10_uart *uart)
+static int rx_fifo_empty(struct a20_uart *uart)
 {
 	return !(read32(&uart->lsr) & UART8250_LSR_DR);
 }
@@ -67,7 +67,7 @@ static int rx_fifo_empty(struct a10_uart *uart)
  *
  * Blocks until at least a byte is available.
  */
-static u8 a10_uart_rx_blocking(struct a10_uart *uart)
+static u8 a20_uart_rx_blocking(struct a20_uart *uart)
 {
 	while (rx_fifo_empty(uart)) ;
 
@@ -79,7 +79,7 @@ static u8 a10_uart_rx_blocking(struct a10_uart *uart)
  *
  * Blocks until there is space in the FIFO.
  */
-static void a10_uart_tx_blocking(struct a10_uart *uart, u8 data)
+static void a20_uart_tx_blocking(struct a20_uart *uart, u8 data)
 {
 	while (tx_fifo_full(uart)) ;
 
@@ -89,22 +89,22 @@ static void a10_uart_tx_blocking(struct a10_uart *uart, u8 data)
 
 void uart_init(int idx)
 {
-	struct a10_uart *uart_base = uart_platform_baseptr(idx);
+	struct a20_uart *uart_base = uart_platform_baseptr(idx);
 
 	/* Use default 8N1 encoding */
-	a10_uart_configure(uart_base, default_baudrate(),
+	a20_uart_configure(uart_base, default_baudrate(),
 		8, UART_PARITY_NONE, 1);
-	a10_uart_enable_fifos(uart_base);
+	a20_uart_enable_fifos(uart_base);
 }
 
 unsigned char uart_rx_byte(int idx)
 {
-	return a10_uart_rx_blocking(uart_platform_baseptr(idx));
+	return a20_uart_rx_blocking(uart_platform_baseptr(idx));
 }
 
 void uart_tx_byte(int idx, unsigned char data)
 {
-	a10_uart_tx_blocking(uart_platform_baseptr(idx), data);
+	a20_uart_tx_blocking(uart_platform_baseptr(idx), data);
 }
 
 void uart_tx_flush(int idx)

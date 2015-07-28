@@ -5,8 +5,8 @@
  * Subject to the GNU GPL v2, or (at your option) any later version.
  */
 
-#ifndef CPU_ALLWINNER_A10_TWI_H
-#define CPU_ALLWINNER_A10_TWI_H
+#ifndef CPU_ALLWINNER_A20_TWI_H
+#define CPU_ALLWINNER_A20_TWI_H
 
 #include <types.h>
 
@@ -55,4 +55,4 @@ struct a1x_twi {
 
 void a1x_twi_init(u8 bus, u32 speed_hz);
 
-#endif				/* CPU_ALLWINNER_A10_TWI_H */
+#endif				/* CPU_ALLWINNER_A20_TWI_H */

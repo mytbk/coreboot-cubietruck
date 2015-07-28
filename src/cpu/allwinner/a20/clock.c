@@ -13,7 +13,7 @@
 #include <lib.h>
 #include <stdlib.h>
 
-static struct a10_ccm *const ccm = (void *)A1X_CCM_BASE;
+static struct a20_ccm *const ccm = (void *)A1X_CCM_BASE;
 
 /**
  * \brief Enable the clock source for the peripheral

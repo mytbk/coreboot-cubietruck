@@ -1,5 +1,5 @@
 /*
- * Memory map definitions for Allwinner A10 CPUs
+ * Memory map definitions for Allwinner A20 CPUs
  *
  * Copyright (C) 2007-2011 Allwinner Technology Co., Ltd.
  *	Tom Cubie <tangliang@allwinnertech.com>
@@ -7,8 +7,8 @@
  * Subject to the GNU GPL v2, or (at your option) any later version.
  */
 
-#ifndef CPU_ALLWINNER_A10_MEMMAP_H
-#define CPU_ALLWINNER_A10_MEMMAP_H
+#ifndef CPU_ALLWINNER_A20_MEMMAP_H
+#define CPU_ALLWINNER_A20_MEMMAP_H
 
 #define A1X_SRAM_A1_BASE		0x00000000
 #define A1X_SRAM_A1_SIZE		(16 * 1024)	/* 16 kiB */
@@ -112,6 +112,6 @@
 
 #define A1X_BROM_BASE			0xffff0000	/* 32 kiB */
 
-#define A1X_CPU_CFG			(A1X_TIMER_BASE + 0x13c)
+#define A1X_CPU_CFG			(A1X_TIMER_BASE + 0x13c) /* maybe wrong? */
 
-#endif				/* CPU_ALLWINNER_A10_MEMMAP_H */
+#endif				/* CPU_ALLWINNER_A20_MEMMAP_H */

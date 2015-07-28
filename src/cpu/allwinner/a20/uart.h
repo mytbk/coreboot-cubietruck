@@ -10,12 +10,12 @@
  * Subject to the GNU GPL v2, or (at your option) any later version.
  */
 
-#ifndef CPU_ALLWINNER_A10_UART_H
-#define CPU_ALLWINNER_A10_UART_H
+#ifndef CPU_ALLWINNER_A20_UART_H
+#define CPU_ALLWINNER_A20_UART_H
 
 #include <types.h>
 
-struct a10_uart {
+struct a20_uart {
 	union {
 		/* operational mode */
 		u32 rbr;	/* receiver buffer (read) */

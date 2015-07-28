@@ -39,7 +39,7 @@ static void a1x_cpu_enable_dev(struct device *dev)
 	dev->ops = &cpu_ops;
 }
 
-struct chip_operations cpu_allwinner_a10_ops = {
-	CHIP_NAME("CPU Allwinner A10")
+struct chip_operations cpu_allwinner_a20_ops = {
+	CHIP_NAME("CPU Allwinner A20")
 	.enable_dev = a1x_cpu_enable_dev,
 };

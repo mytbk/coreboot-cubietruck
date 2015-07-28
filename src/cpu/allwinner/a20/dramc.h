@@ -11,8 +11,8 @@
  * Subject to the GNU GPL v2, or (at your option) any later version.
  */
 
-#ifndef CPU_ALLWINNER_A10_DRAMC_H
-#define CPU_ALLWINNER_A10_DRAMC_H
+#ifndef CPU_ALLWINNER_A20_DRAMC_H
+#define CPU_ALLWINNER_A20_DRAMC_H
 
 #include <types.h>
 
@@ -173,4 +173,4 @@ struct dram_para {
 
 unsigned long dramc_init(struct dram_para *para);
 
-#endif				/* CPU_ALLWINNER_A10_DRAMC_H */
+#endif				/* CPU_ALLWINNER_A20_DRAMC_H */
