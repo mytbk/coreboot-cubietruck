@@ -7,8 +7,8 @@
  * Subject to the GNU GPL v2, or (at your option) any later version.
  */
 
-#ifndef CPU_ALLWINNER_A10_CLOCK_H
-#define CPU_ALLWINNER_A10_CLOCK_H
+#ifndef CPU_ALLWINNER_A20_CLOCK_H
+#define CPU_ALLWINNER_A20_CLOCK_H
 
 #include "memmap.h"
 #include <types.h>
@@ -95,9 +95,9 @@ enum a1x_clken {
 	/* AHB0 module clock gating */
 	A1X_CLKEN_USB0 = (0x60 << 5),
 	A1X_CLKEN_EHCI0,
-	RSVD_0x60_2,
+	A1X_CLKEN_OHCI0,
 	A1X_CLKEN_EHCI1,
-	RSVD_0x60_4,
+	A1X_CLKEN_OHCI1,
 	A1X_CLKEN_SS,
 	A1X_CLKEN_DMA,
 	A1X_CLKEN_BIST,
@@ -117,9 +117,11 @@ enum a1x_clken {
 	A1X_CLKEN_SPI1,
 	A1X_CLKEN_SPI2,
 	A1X_CLKEN_SPI3,
-	A1X_CLKEN_PATA,
-	RSVD_0x60_25,
-	A1X_CLKEN_GPS,
+	RSVD_0x60_24,
+	A20_CLKEN_SATA,
+	RSVD_0x60_26,
+        RSVD_0x60_27,
+        A20_CLKEN_STIMER_AHB, /* Gating AHB clock for sync timer */
 	/* AHB1 module clock gating */
 	A1X_CLKEN_DRAM_VE = (0x64 << 5),
 	A1X_CLKEN_TVD,
@@ -138,27 +140,27 @@ enum a1x_clken {
 	A1X_CLKEN_DE_FE0,
 	A1X_CLKEN_DE_FE1,
 	RSVD_0x64_16,
-	RSVD_0x64_17,
+	A20_CLKEN_GMAC, /* gating AHB clock for GMAC */
 	A1X_CLKEN_MP,
 	RSVD_0x64_19,
 	A1X_CLKEN_MALI400,
 	/* APB0 module clock gating */
 	A1X_CLKEN_CODEC = (0x68 << 5),
-	A1X_CLKEN_NC_APB,
+	A1X_CLKEN_SPDIF,
 	A1X_CLKEN_AC97,
-	A1X_CLKEN_IIS,
-	RSVD_0x68_4,
+	A1X_CLKEN_IIS0,
+	A1X_CLKEN_IIS1,
 	A1X_CLKEN_PIO,
 	A1X_CLKEN_IR0,
 	A1X_CLKEN_IR1,
-	RSVD_0x68_8,
+	A1X_CLKEN_IIS2,
 	RSVD_0x68_9,
 	A1X_CLKEN_KEYPAD,
 	/* APB1 module clock gating */
 	A1X_CLKEN_TWI0 = (0x6C << 5),
 	A1X_CLKEN_TWI1,
 	A1X_CLKEN_TWI2,
-	RSVD_0x6C_3,
+	A1X_CLKEN_TWI3,
 	A1X_CLKEN_CAN,
 	A1X_CLKEN_SCR,
 	A1X_CLKEN_PS20,
@@ -170,7 +172,7 @@ enum a1x_clken {
 	RSVD_0x6C_12,
 	RSVD_0x6C_13,
 	RSVD_0x6C_14,
-	RSVD_0x6C_15,
+	A1X_CLKEN_TWI4,
 	A1X_CLKEN_UART0,
 	A1X_CLKEN_UART1,
 	A1X_CLKEN_UART2,
@@ -181,7 +183,7 @@ enum a1x_clken {
 	A1X_CLKEN_UART7,
 };
 
-struct a10_ccm {
+struct a20_ccm {
 	u32 pll1_cfg;		/* 0x00 pll1 control */
 	u32 pll1_tun;		/* 0x04 pll1 tuning */
 	u32 pll2_cfg;		/* 0x08 pll2 control */
@@ -195,7 +197,7 @@ struct a10_ccm {
 	u32 pll6_cfg;		/* 0x28 pll6 control */
 	u32 pll6_tun;		/* 0x2c pll6 tuning */
 	u32 pll7_cfg;		/* 0x30 pll7 control */
-	u32 pll1_tun2;		/* 0x34 pll5 tuning2 */
+	u32 pll1_tun2;		/* 0x34 pll1 tuning2 */
 	u8 res2[0x4];
 	u32 pll5_tun2;		/* 0x3c pll5 tuning2 */
 	u8 res3[0xc];
@@ -269,4 +271,4 @@ void a1x_gate_dram_clock_output(void);
 /* Not available in bootblock */
 void a1x_set_cpu_clock(u16 cpu_clk_mhz);
 
-#endif				/* CPU_ALLWINNER_A10_CLOCK_H */
+#endif				/* CPU_ALLWINNER_A20_CLOCK_H */

@@ -138,18 +138,6 @@ static void mctl_setup_dram_clock(u32 clk)
 
 	a1x_pll5_enable_dram_clock_output();
 
-	/* reset GPS */
-	/* FIXME: These bits are also undocumented, and seem to have no effect
-	 * on A10.
-	 *
-	 * #define CCM_GPS_CTRL_RESET (0x1 << 0)
-	 * #define CCM_GPS_CTRL_GATE (0x1 << 1)
-	 * clrbits_le32(&ccm->gps_clk_cfg, CCM_GPS_CTRL_RESET | CCM_GPS_CTRL_GATE);
-	 */
-	a1x_periph_clock_enable(A1X_CLKEN_GPS);
-	udelay(1);
-	a1x_periph_clock_disable(A1X_CLKEN_GPS);
-
 	/* setup MBUS clock */
 	/* FIXME: The MBUS does not seem to be present or do anything on A10. It
 	 * is documented in the A13 user manual, but changing settings on A10
