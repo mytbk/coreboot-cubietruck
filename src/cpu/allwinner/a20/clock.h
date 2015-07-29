@@ -33,6 +33,10 @@
 #define  AXI_DIV_3			(2 << 0)
 #define  AXI_DIV_4			(3 << 0)
 
+/* AHB_CLK_GATE values */
+#define AHB_GATE_DMA                    (1 << 6)
+#define AHB_GATE_SATA                   (1 << 25)
+
 /* APB1_CLK_DIV values */
 #define APB1_CLK_SRC_MASK		(3 << 24)
 #define  APB1_CLK_SRC_OSC24M		(0 << 24)
@@ -62,6 +66,9 @@
 #define PLL5_FACTOR_M1(m1)		(((m1) << 2) & PLL5_FACTOR_M1_MASK)
 #define PLL5_FACTOR_M_MASK		(0x3 << 0)
 #define PLL5_FACTOR_M(m)		((((m) - 1) << 0) & PLL5_FACTOR_M_MASK)
+
+/* PLL6_CFG values */
+#define PLL6_SATA_CLK_EN                (1 << 14)
 
 /* DRAM_CLK values*/
 #define DRAM_CTRL_DCLK_OUT		(1 << 15)

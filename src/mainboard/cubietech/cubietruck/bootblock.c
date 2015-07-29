@@ -21,9 +21,11 @@
 	 | AHB_DIV_2			\
 	 | AXI_DIV_1
 
-#define GPH_STATUS_LEDS			(1 << 20) | (1 << 21)
+#define GPH_STATUS_LEDS			(1 << 7) | (1<< 11) | (1 << 20) | (1 << 21)
 #define GPH_LED1_PIN_NO			21
 #define GPH_LED2_PIN_NO			20
+#define GPH_LED3_PIN_NO                 11
+#define GPH_LED4_PIN_NO                 7
 
 #define GPB_UART0_FUNC			2
 #define GPB_UART0_PINS			((1 << 22) | (1 << 23))
@@ -54,6 +56,13 @@ static void cubieboard_set_sys_clock(void)
 	reg32 &= ~CPU_CLK_SRC_MASK;
 	reg32 |= CPU_CLK_SRC_PLL1;
 	write32(&ccm->cpu_ahb_apb0_cfg, reg32);
+
+        /* source code from u-boot sun7i code */
+        setbits_le32(&ccm->ahb_gate0, AHB_GATE_DMA);
+        write32(&ccm->pll6_cfg, 0xa1009911);
+        /* config AHCI */
+        setbits_le32(&ccm->ahb_gate0, AHB_GATE_SATA);
+	setbits_le32(&ccm->pll6_cfg, PLL6_SATA_CLK_EN);
 }
 
 static void cubieboard_setup_clocks(void)
@@ -79,7 +88,7 @@ static void cubieboard_setup_gpios(void)
 	/* Mux Status LED pins */
 	gpio_set_multipin_func(GPH, GPH_STATUS_LEDS, GPIO_PIN_FUNC_OUTPUT);
 	/* Turn on green LED to let user know we're executing coreboot code */
-	gpio_set(GPH, GPH_LED2_PIN_NO);
+	gpio_set(GPH, GPH_LED4_PIN_NO);
 
 	/* Mux UART pins */
 	gpio_set_multipin_func(GPB, GPB_UART0_PINS, GPB_UART0_FUNC);
@@ -136,6 +145,7 @@ void bootblock_mainboard_init(void)
 
 	cubieboard_setup_clocks();
 	cubieboard_setup_gpios();
+        
 	cubieboard_enable_uart();
 
 	cubieboard_raminit();
