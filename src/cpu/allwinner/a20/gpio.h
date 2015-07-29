@@ -43,11 +43,7 @@ struct a20_gpio {
 
 	u32 int_ctl;
 	u32 int_sta;
-	u8 reserved_0x21C[4];
 	u32 int_deb;
-
-	u32 sdr_pad_drv;
-	u32 sdr_pad_pul;
 } __attribute__ ((packed));
 
 /* gpio.c */
