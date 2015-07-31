@@ -21,9 +21,11 @@
 	 | AHB_DIV_2			\
 	 | AXI_DIV_1
 
-#define GPH_STATUS_LEDS			(1 << 20) | (1 << 21)
+#define GPH_STATUS_LEDS			((1 << 7) | (1 << 11) | (1 << 20) | (1 << 21))
 #define GPH_LED1_PIN_NO			21
 #define GPH_LED2_PIN_NO			20
+#define GPH_LED3_PIN_NO			11
+#define GPH_LED4_PIN_NO			7
 
 #define GPB_UART0_FUNC			2
 #define GPB_UART0_PINS			((1 << 22) | (1 << 23))
@@ -81,7 +83,7 @@ static void cubieboard_setup_gpios(void)
 {
 	/* Mux Status LED pins */
 	gpio_set_multipin_func(GPH, GPH_STATUS_LEDS, GPIO_PIN_FUNC_OUTPUT);
-	/* Turn on green LED to let user know we're executing coreboot code */
+	/* Turn on LED2 to let user know we're executing coreboot code */
 	gpio_set(GPH, GPH_LED2_PIN_NO);
 
 	/* Mux UART pins */
@@ -100,29 +102,30 @@ static void cubieboard_enable_uart(void)
 	a1x_periph_clock_enable(A1X_CLKEN_UART0);
 }
 
-static void cubieboard_raminit(void)
+static void cubietruck_raminit(void)
 {
-	struct dram_para dram_para = {
-		.clock = 480,
-		.type = 3,
-		.rank_num = 1,
-		.density = 4096,
-		.io_width = 16,
-		.bus_width = 32,
-		.cas = 6,
-		.zq = 123,
-		.odt_en = 0,
-		.size = 1024,
-		.tpr0 = 0x30926692,
-		.tpr1 = 0x1090,
-		.tpr2 = 0x1a0c8,
-		.tpr3 = 0,
-		.tpr4 = 0,
-		.tpr5 = 0,
-		.emr1 = 0,
-		.emr2 = 0,
-		.emr3 = 0,
-	};
+	/* parameters copied from u-boot-sunxi */
+	static struct dram_para dram_para = {
+            .clock = 432,
+            .type = 3,
+            .rank_num = 1,
+            .density = 8192,
+            .io_width = 16,
+            .bus_width = 32,
+            .cas = 9,
+            .zq = 0x7f,
+            .odt_en = 0,
+            .size = 2048,
+            .tpr0 = 0x42d899b7,
+            .tpr1 = 0xa090,
+            .tpr2 = 0x22a00,
+            .tpr3 = 0x0,
+            .tpr4 = 0x1,
+            .tpr5 = 0x0,
+            .emr1 = 0x4,
+            .emr2 = 0x10,
+            .emr3 = 0x0,
+        };
 
 	dramc_init(&dram_para);
 
@@ -144,5 +147,7 @@ void bootblock_mainboard_init(void)
 	cubieboard_setup_gpios();
 	cubieboard_enable_uart();
 
-	cubieboard_raminit();
+	cubietruck_raminit();
+	/* turn on LED3 to show bootblock_mainboard_init() finished */
+	gpio_set(GPH, GPH_LED3_PIN_NO);
 }
