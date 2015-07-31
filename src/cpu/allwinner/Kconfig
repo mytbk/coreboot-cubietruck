@@ -1,1 +1,12 @@
 source src/cpu/allwinner/a10/Kconfig
+source src/cpu/allwinner/a20/Kconfig
+
+config MACH_SUN4I
+       bool
+
+config MACH_SUN5I
+       bool
+       
+config MACH_SUN7I
+       bool
+       

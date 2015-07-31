@@ -1,5 +1,6 @@
 config CPU_ALLWINNER_A10
 	bool
+        select MACH_SUN4I
 	default n
 
 if CPU_ALLWINNER_A10
