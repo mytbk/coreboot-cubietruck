@@ -7,9 +7,13 @@ choice
 config BOARD_CUBIETECH_CUBIEBOARD
 	bool "Cubieboard"
 
+config BOARD_CUBIETECH_CUBIETRUCK
+	bool "Cubietruck"
+       
 endchoice
 
 source "src/mainboard/cubietech/cubieboard/Kconfig"
+source "src/mainboard/cubietech/cubietruck/Kconfig"
 
 config MAINBOARD_VENDOR
 	string
