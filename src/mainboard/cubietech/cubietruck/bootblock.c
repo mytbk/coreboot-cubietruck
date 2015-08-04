@@ -59,6 +59,12 @@ static void cubieboard_set_sys_clock(void)
 	reg32 &= ~CPU_CLK_SRC_MASK;
 	reg32 |= CPU_CLK_SRC_PLL1;
 	write32(reg32, &ccm->cpu_ahb_apb0_cfg);
+
+        setbits_le32(&ccm->ahb_gate0, AHB_GATE_DMA);
+        write32(0xa1009911, &ccm->pll6_cfg);
+        /* config AHCI */
+        setbits_le32(&ccm->ahb_gate0, AHB_GATE_SATA);
+        setbits_le32(&ccm->pll6_cfg, PLL6_SATA_CLK_EN);
 }
 
 static void cubieboard_setup_clocks(void)
