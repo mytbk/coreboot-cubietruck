@@ -26,11 +26,14 @@ static struct a1x_dramc *const dram = (void *)A1X_DRAMC_BASE;
 
 static void mctl_ddr3_reset(void)
 {
+#if CONFIG_MACH_SUN4I==1
 	if (a1x_get_cpu_chip_revision() != A1X_CHIP_REV_A) {
 		setbits_le32(&dram->mcr, DRAM_MCR_RESET);
 		udelay(2);
 		clrbits_le32(&dram->mcr, DRAM_MCR_RESET);
-	} else {
+	} else
+#endif
+        {
 		clrbits_le32(&dram->mcr, DRAM_MCR_RESET);
 		udelay(2);
 		setbits_le32(&dram->mcr, DRAM_MCR_RESET);
@@ -39,8 +42,12 @@ static void mctl_ddr3_reset(void)
 
 static void mctl_set_drive(void)
 {
-	clrsetbits_le32(&dram->mcr, DRAM_MCR_MODE_NORM(0x3),
-			DRAM_MCR_MODE_EN(0x3) | 0xffc);
+#if CONFIG_MACH_SUN7I==1
+    clrsetbits_le32(&dram->mcr, DRAM_MCR_MODE_NORM(0x3) | (0x3 << 28),
+#else
+    clrsetbits_le32(&dram->mcr, DRAM_MCR_MODE_NORM(0x3),
+#endif
+                    DRAM_MCR_MODE_EN(0x3) | 0xffc);
 }
 
 static void mctl_itm_disable(void)
@@ -83,8 +90,13 @@ static void mctl_enable_dllx(u32 phase)
 		n = DRAM_DCR_NR_DLLCR_16BIT;
 
 	for (i = 1; i < n; i++) {
+#if CONFIG_MACH_SUN7I==1
+		clrsetbits_le32(&dram->dllcr[i], 0xf << 14,
+				(phase & 0xf) << 14);
+#else
 		clrsetbits_le32(&dram->dllcr[i], 0x4 << 14,
 				(phase & 0xf) << 14);
+#endif
 		clrsetbits_le32(&dram->dllcr[i], DRAM_DLLCR_NRESET,
 				DRAM_DLLCR_DISABLE);
 		phase >>= 4;
